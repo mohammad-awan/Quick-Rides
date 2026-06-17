@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - QuickRides</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <link href="{{ url_for('static', filename='admin_static/admin.css') }}" rel="stylesheet" />
+</head>
+<body style="background-color: #f8f9fa;">
+
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white text-center">
+          <h4 class="mb-0"><i class="fas fa-user-shield me-2"></i>Admin Login</h4>
+        </div>
+        <div class="card-body">
+          {% if error %}
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          {% endif %}
+          <form method="POST" action="{{ url_for('admin_bp.admin_login') }}">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-dark">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center text-muted small">
+          &copy; {{ current_year }} QuickRides Admin Panel
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='admin_static/admin.js') }}"></script>
+</body>
+</html>

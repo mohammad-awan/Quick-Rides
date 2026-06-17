@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-header bg-dark text-white">
+    <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add New Car</h5>
+  </div>
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Car Name</label>
+          <input type="text" name="name" class="form-control" placeholder="e.g. Toyota Corolla" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Brand</label>
+          <input type="text" name="brand" class="form-control" placeholder="e.g. Toyota" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Price Per Day</label>
+          <input type="number" name="price_per_day" class="form-control" placeholder="e.g. 5000" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Seats</label>
+          <input type="number" name="seats" class="form-control" placeholder="e.g. 5" required>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">Transmission</label>
+          <select name="transmission" class="form-select" required>
+            <option selected disabled value="">Choose...</option>
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Fuel Type</label>
+          <select name="fuel" class="form-select" required>
+            <option selected disabled value="">Choose...</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Mileage</label>
+        <input type="text" name="mileage" class="form-control" placeholder="e.g. 15 km/l" required>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Luggage Capacity</label>
+        <input type="number" name="luggage" class="form-control" placeholder="e.g. 2" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Features (comma separated)</label>
+        <input type="text" name="features" class="form-control" placeholder="e.g. Airconditioning, Bluetooth, GPS">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="4" placeholder="Write details about the car..."></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Upload Car Images</label>
+        <input type="file" name="images" class="form-control" multiple required>
+        <div class="form-text">You can select multiple images.</div>
+      </div>
+
+      <button type="submit" class="btn btn-dark">
+        <i class="fas fa-save me-2"></i>Add Car
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

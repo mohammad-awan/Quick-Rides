@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Edit Car{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Edit Car</h2>
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name" class="form-label">Car Name</label>
+        <input type="text" name="name" id="name" value="{{ car.name }}" class="form-control" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="brand" class="form-label">Brand</label>
+        <input type="text" name="brand" id="brand" value="{{ car.brand }}" class="form-control" required>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="price_per_day" class="form-label">Price Per Day (PKR)</label>
+        <input type="number" name="price_per_day" id="price_per_day" value="{{ car.price_per_day }}" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="transmission" class="form-label">Transmission</label>
+        <input type="text" name="transmission" id="transmission" value="{{ car.transmission }}" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="mileage" class="form-label">Mileage</label>
+        <input type="text" name="mileage" id="mileage" value="{{ car.mileage }}" class="form-control" required>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="seats" class="form-label">Seats</label>
+        <input type="text" name="seats" id="seats" value="{{ car.seats }}" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="luggage" class="form-label">Luggage</label>
+        <input type="text" name="luggage" id="luggage" value="{{ car.luggage }}" class="form-control" required>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="fuel" class="form-label">Fuel</label>
+        <input type="text" name="fuel" id="fuel" value="{{ car.fuel }}" class="form-control" required>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" id="description" class="form-control" rows="3">{{ car.description }}</textarea>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label for="features" class="form-label">Features</label>
+        <textarea name="features" id="features" class="form-control" rows="3">{{ car.features }}</textarea>
+      </div>
+
+      <div class="col-12 mb-4">
+        <label class="form-label">Upload New Images (optional)</label>
+        <input type="file" name="images" class="form-control" multiple>
+        <div class="form-text">Uploading new images will replace existing ones.</div>
+      </div>
+
+      <div class="col-12 mb-4">
+        <h5>Current Images:</h5>
+        <div class="d-flex flex-wrap">
+          {% if car.image_main %}
+            <img src="{{ url_for('static', filename='admin_static/uploads/' ~ car.image_main) }}"
+                 class="me-2 mb-2 border" height="120" alt="Main Image">
+          {% endif %}
+          {% if car.image_extra %}
+            {% for img in car.image_extra.split(',') %}
+              <img src="{{ url_for('static', filename='admin_static/uploads/' ~ img) }}"
+                   class="me-2 mb-2 border" height="120" alt="Extra Image">
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Update Car</button>
+        <a href="{{ url_for('admin_bp.manage_cars') }}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Manage Cars</h4>
+</div>
+
+<ul class="nav nav-tabs mb-4" id="carTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="all-cars-tab" data-bs-toggle="tab" data-bs-target="#all-cars" type="button" role="tab" aria-controls="all-cars" aria-selected="true">
+      <i class="fas fa-car"></i> All Cars
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" href="{{ url_for('admin_bp.add_car') }}">
+      <i class="fas fa-plus"></i> Add Car
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content" id="carTabContent">
+  <div class="tab-pane fade show active" id="all-cars" role="tabpanel" aria-labelledby="all-cars-tab">
+    <div class="row">
+      {% for car in cars %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{{ url_for('static', filename='admin_static/uploads/' ~ car.image_main) }}"
+               class="card-img-top"
+               style="height: 200px; object-fit: cover;"
+               alt="Car Image">
+
+          <div class="card-body">
+            <h5 class="card-title">{{ car.name }}</h5>
+            <p class="card-text">
+              <strong>Brand:</strong> {{ car.brand }}<br>
+              <strong>Price:</strong> {{ car.price_per_day }} PKR/day<br>
+              <strong>Fuel:</strong> {{ car.fuel }}<br>
+              <strong>Transmission:</strong> {{ car.transmission }}<br>
+              <strong>Added On:</strong> {{ car.added_on.strftime('%Y-%m-%d | %I:%M %p') }}
+            </p>
+
+            <div class="d-flex justify-content-between">
+              <a href="{{ url_for('admin_bp.edit_car', car_id=car.id) }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <form action="{{ url_for('admin_bp.delete_car', car_id=car.id) }}" method="POST" onsubmit="return confirm('Delete this car?');">
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash-alt"></i> Delete
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

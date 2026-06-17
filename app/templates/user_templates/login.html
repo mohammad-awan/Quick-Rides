@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QuickRides</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/animate.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/magnific-popup.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/aos.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/ionicons.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/jquery.timepicker.css') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/style.css') }}">
+  </head>
+  <body>
+
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{{ url_for('user_bp.index') }}">Quick<span>Rides</span></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="{{ url_for('user_bp.index') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.about') }}" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.services') }}" class="nav-link">Services</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.cars') }}" class="nav-link">All Cars</a></li>
+	          <li class="nav-item active"><a href="{{ url_for('user_bp.contact') }}" class="nav-link">Contact</a></li>
+              {% if session.get('user_id') and not session.get('is_admin') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  {{ session.get('user.last_name', 'User') }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ url_for('user_bp.edit_profile') }}">Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('user_bp.logout') }}">Logout</a>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item"><a href="{{ url_for('user_bp.login') }}" class="nav-link">Login</a></li>
+            {% endif %}
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ url_for('static', filename='user_static/images/bg_3.jpg') }}');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+            <p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('user_bp.index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Login <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">Login</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+    {% endwith %}
+    </div>
+
+    <!-- Login Form Section -->
+    <section class="ftco-section contact-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="bg-light p-5 rounded">
+              <h3 class="text-center mb-4">Login to Your Account</h3>
+              <form method="POST" action="{{ url_for('user_bp.login') }}">
+                <div class="form-group">
+                  <input type="email" name="username" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group text-center">
+                  <input type="submit" value="Login" class="btn btn-primary px-4 py-2">
+                </div>
+                <div class="text-center mt-3">
+                  <span>Don't have an account?</span>
+                  <a href="{{ url_for('user_bp.register') }}">Register here</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2"><a href="#" class="logo">Quick<span>Rides</span></a></h2>
+              <p>Far across the roads and valleys of Pakistan, beyond the bustling cities and quiet towns, travel dreams come alive with Quick Rides — where every journey begins with comfort and ends in unforgettable memories.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Information</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.about') }}" class="py-2 d-block">About</a></li>
+                <li><a href="{{ url_for('user_bp.services') }}" class="py-2 d-block">Services</a></li>
+                <li><a href="{{ url_for('user_bp.terms') }}" class="py-2 d-block">Term and Conditions</a></li>
+                <li><a href="{{ url_for('user_bp.best_price') }}" class="py-2 d-block">Best Price Guarantee</a></li>
+                <li><a href="{{ url_for('user_bp.privacy') }}" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Customer Support</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.faq') }}" class="py-2 d-block">FAQ</a></li>
+                <li><a href="{{ url_for('user_bp.contact') }}" class="py-2 d-block">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">PCHS Defense Ghazi Road Lahore</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+92 3174593982</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">QuickRides@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved </p>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{{ url_for('static', filename='user_static/js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.timepicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/scrollax.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/main.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+  </body>
+</html>

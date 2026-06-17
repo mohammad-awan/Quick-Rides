@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Manage Drivers</h2>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>License No</th>
+      <th>Status</th>
+      <th>Experience</th>
+      <th>Applied On</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for driver in drivers %}
+    <tr>
+      <td scope="row">{{ loop.index }}</td>
+      <td>{{ driver.full_name }}</td>
+      <td>{{ driver.email }}</td>
+      <td>{{ driver.phone }}</td>
+      <td>{{ driver.license_number }}</td>
+      <td>
+        {% if driver.status == "Pending" %}
+          <span class="badge bg-warning text-dark">Pending</span>
+        {% elif driver.status == "Requested" %}
+          <span class="badge bg-info text-dark">Requested</span>
+        {% elif driver.status == "Approved" %}
+          <span class="badge bg-success">Approved</span>
+        {% elif driver.status == "Rejected" %}
+          <span class="badge bg-danger">Rejected</span>
+        {% else %}
+          <span class="badge bg-secondary">Unknown</span>
+        {% endif %}
+      </td>
+      <td>{{ driver.experience }}</td>
+      <td>{{ driver.applied_on.strftime('%d-%b-%Y %I:%M %p') }}</td>
+      <td>
+        {% if driver.status == "Requested" %}
+          <form action="{{ url_for('admin_bp.approve_driver', driver_id=driver.id) }}" method="post" class="mb-1">
+            <button type="submit" class="btn btn-success btn-sm">Approve</button>
+          </form>
+          <form action="{{ url_for('admin_bp.reject_driver', driver_id=driver.id) }}" method="post">
+            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+          </form>
+        {% elif driver.status == "Pending" %}
+          <span class="text-muted">Awaiting Driver Confirmation</span>
+        {% else %}
+          <span class="text-muted">No Action</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+

@@ -1,0 +1,55 @@
+body {
+  overflow-x: hidden;
+  background-color: #f8f9fa;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  width: 250px;
+  transition: all 0.3s ease;
+  background-color: #212529;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: -250px;
+}
+
+.sidebar-heading {
+  background: linear-gradient(90deg, #343a40, #212529);
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  color: #fff;
+  border-bottom: 1px solid #343a40;
+}
+
+.list-group-item {
+  transition: 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #495057;
+  color: #fff;
+}
+
+.list-group-item.active {
+  background-color: #198754;
+  border-color: #198754;
+}
+
+.navbar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header {
+  font-weight: 600;
+}
+
+.dropdown-menu {
+  min-width: 180px;
+}

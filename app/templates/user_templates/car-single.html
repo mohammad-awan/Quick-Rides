@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QuickRides</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/animate.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/magnific-popup.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/aos.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/ionicons.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/jquery.timepicker.css') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/style.css') }}">
+  </head>
+  <body>
+    
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{{ url_for('user_bp.index') }}">Quick<span>Rides</span></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="{{ url_for('user_bp.index') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="{{ url_for('user_bp.about') }}" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.services') }}" class="nav-link">Services</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.cars') }}" class="nav-link">All Cars</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.contact') }}" class="nav-link">Contact</a></li>
+			  {% if session.get('user_id') and not session.get('is_admin') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  {{ session.get('last_name', 'User') }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ url_for('user_bp.edit_profile') }}">Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('user_bp.logout') }}">Logout</a>
+                </div>
+              </li>
+            {% else %}
+              <li class="nav-item"><a href="{{ url_for('user_bp.login') }}" class="nav-link">Login</a></li>
+            {% endif %}
+
+
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+    
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ url_for('static', filename='user_static/images/bg_3.jpg') }}');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="{{ url_for('user_bp.index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Car details <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">Car Details</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+		
+
+		<section class="ftco-section ftco-car-details">
+      <div class="container">
+      	<div class="row justify-content-center">
+      		<div class="col-md-12">
+      			<div class="car-details">
+      				<div class="car-gallery mb-4">
+					  <a href="{{ url_for('static', filename='admin_static/uploads/' ~ car.image_main) }}" class="image-popup">
+						<img src="{{ url_for('static', filename='admin_static/uploads/' ~ car.image_main) }}" class="img-fluid rounded" alt="{{ car.name }}">
+					  </a>
+					</div>
+					{% if car.image_extra %}
+					  <div class="car-gallery d-flex flex-wrap gap-2">
+						{% for img in car.image_extra.split(',') %}
+						<a href="{{ url_for('static', filename='admin_static/uploads/' ~ img) }}" class="image-popup">
+						  <img src="{{ url_for('static', filename='admin_static/uploads/' ~ img) }}" class="img-thumbnail" style="width: 120px; height: auto;">
+						</a>
+						{% endfor %}
+					  </div>
+					{% endif %}
+      				<div class="text text-center">
+      					<span class="subheading">{{ car.brand }}</span>
+      					<h2>{{ car.name }}</h2>
+      				</div>
+      			</div>
+      		</div>
+      	</div>
+      	<div class="row">
+      		<div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-dashboard"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Mileage
+		                	<span>{{ car.mileage }}</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Transmission
+		                	<span>{{ car.transmission }}</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Seats
+		                	<span>{{ car.seats }} adults</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Luggage
+		                	<span>{{ car.luggage }}</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Fuel
+		                	<span>{{ car.fuel }}</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+      	</div>
+      	<div class="row">
+      		<div class="col-md-12 pills">
+						<div class="bd-example bd-example-tabs">
+							<div class="d-flex justify-content-center">
+							  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+							    <li class="nav-item">
+							      <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">{{ car.features }}</a>
+							    </li>
+							    <li class="nav-item">
+							      <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">{{ car.description }}</a>
+							    </li>
+							    <li class="nav-item">
+							      <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review</a>
+							    </li>
+							  </ul>
+							</div>
+
+						  <div class="tab-content" id="pills-tabContent">
+						    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+						    	<div class="row">
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li>
+						    			</ul>
+						    		</div>
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li>
+						    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
+						    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li>
+						    			</ul>
+						    		</div>
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li>
+						    			</ul>
+						    		</div>
+						    	</div>
+						    </div>
+
+						    <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
+						      <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+									<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+						    </div>
+
+						    <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+						      <div class="row">
+							   		<div class="col-md-7">
+							   			<h3 class="head">23 Reviews</h3>
+							   			<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url('{{ url_for('static', filename='user_static/images/person_1.jpg') }}')"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+									   	<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url('{{ url_for('static', filename='user_static/images/person_2.jpg') }}')"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+									   	<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url('{{ url_for('static', filename='user_static/images/person_3.jpg') }}')"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+							   		</div>
+							   		<div class="col-md-5">
+							   			<div class="rating-wrap">
+								   			<h3 class="head">Give a Review</h3>
+								   			<div class="wrap">
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(98%)
+								   					</span>
+								   					<span>20 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(85%)
+								   					</span>
+								   					<span>10 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(70%)
+								   					</span>
+								   					<span>5 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(10%)
+								   					</span>
+								   					<span>0 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(0%)
+								   					</span>
+								   					<span>0 Reviews</span>
+									   			</p>
+									   		</div>
+								   		</div>
+							   		</div>
+							   	</div>
+						    </div>
+						  </div>
+						</div>
+		      </div>
+				</div>
+      </div>
+    </section>
+
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+          {% for car in cars %}
+            <div class="col-md-4 mb-4">
+              <div class="car-wrap rounded ftco-animate shadow-sm border">
+                <div class="img rounded d-flex align-items-end"
+                  style="background-image: url('{{ url_for('static', filename='admin_static/uploads/' ~ car.image_main) }}');
+                         height: 200px; background-size: cover; background-position: center;">
+                </div>
+                <div class="text p-3">
+                  <h2 class="mb-0"><a href="{{ url_for('user_bp.single_car', car_id=car.id) }}">{{ car.name }}</a></h2>
+                  <div class="d-flex justify-content-between mb-3">
+                      <span class="cat">{{ car.brand }}</span>
+                      <p class="price">{{ car.price_per_day }} PKR <span>/day</span></p>
+                  </div>
+                  <p class="d-flex mb-0 d-block">
+                    <a href="#" class="btn btn-primary py-2 mr-1">Book now</a>
+                    <a href="{{ url_for('user_bp.single_car', car_id=car.id) }}" class="btn btn-secondary py-2 ml-1">Details</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+<!--        &lt;!&ndash; Optional Pagination UI &ndash;&gt;-->
+<!--        <div class="row mt-5">-->
+<!--          <div class="col text-center">-->
+<!--            <div class="block-27">-->
+<!--              <ul>-->
+<!--                <li><a href="#">&lt;</a></li>-->
+<!--                <li class="active"><span>1</span></li>-->
+<!--                <li><a href="#">2</a></li>-->
+<!--                <li><a href="#">3</a></li>-->
+<!--                <li><a href="#">4</a></li>-->
+<!--                <li><a href="#">5</a></li>-->
+<!--                <li><a href="#">&gt;</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </section>
+    
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>book</span></a></h2>
+              <p>Far across the roads and valleys of Pakistan, beyond the bustling cities and quiet towns, travel dreams come alive with Quick Rides — where every journey begins with comfort and ends in unforgettable memories.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Information</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.about') }}" class="py-2 d-block">About</a></li>
+                <li><a href="{{ url_for('user_bp.services') }}" class="py-2 d-block">Services</a></li>
+                <li><a href="{{ url_for('user_bp.terms') }}" class="py-2 d-block">Term and Conditions</a></li>
+                <li><a href="{{ url_for('user_bp.best_price') }}" class="py-2 d-block">Best Price Guarantee</a></li>
+                <li><a href="{{ url_for('user_bp.privacy') }}" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Customer Support</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.faq') }}" class="py-2 d-block">FAQ</a></li>
+                <li><a href="{{ url_for('user_bp.contact') }}" class="py-2 d-block">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">PCHS Defense Ghazi Road Lahore</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+92 3174593982</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">QuickRides@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{{ url_for('static', filename='user_static/js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.timepicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/scrollax.min.js') }}"></script>
+  {% if config.GOOGLE_MAPS_API_KEY %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAPS_API_KEY|urlencode }}&sensor=false"></script>
+  <script src="{{ url_for('static', filename='user_static/js/google-map.js') }}"></script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='user_static/js/main.js') }}"></script>
+  <script>
+	  $(document).ready(function() {
+		$('.car-gallery').magnificPopup({
+		  delegate: 'a.image-popup',
+		  type: 'image',
+		  gallery: {
+			enabled: true
+		  }
+		});
+	  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    
+  </body>
+</html>

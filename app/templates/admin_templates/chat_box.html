@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Chat with {{ email }}</h4>
+<div class="border p-3 mb-4" style="height: 300px; overflow-y: scroll;">
+  {% for msg in messages %}
+    <div class="mb-2">
+      <strong class="{% if msg.from == 'admin' %}text-primary{% else %}text-success{% endif %}">
+        {{ msg.from.capitalize() }}:
+      </strong> {{ msg.text }} <br>
+      <small class="text-muted">{{ msg.time.strftime('%Y-%m-%d %I:%M %p') }}</small>
+    </div>
+  {% endfor %}
+</div>
+
+<form method="POST">
+  <textarea name="reply" class="form-control mb-2" placeholder="Type your reply..." required></textarea>
+  <button type="submit" class="btn btn-primary">Send Reply</button>
+</form>
+{% endblock %}

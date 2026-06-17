@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Booking Requests</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Car</th>
+          <th scope="col">User</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ booking.car.name }}</td>
+          <td>{{ booking.first_name }} {{ booking.last_name }}</td>
+          <td>{{ booking.start_date.strftime('%Y-%m-%d') }}</td>
+          <td>{{ booking.end_date.strftime('%Y-%m-%d') }}</td>
+          <td>
+          {% if booking.status == 'Pending' %}
+            <span class="badge bg-warning text-dark">Pending</span>
+          {% elif booking.status == 'Requested' %}
+            <span class="badge bg-info text-dark">Requested</span>
+          {% elif booking.status == 'Confirmed' %}
+            <span class="badge bg-success">Confirmed</span>
+          {% elif booking.status == 'Rejected' %}
+            <span class="badge bg-danger">Rejected</span>
+          {% endif %}
+        </td>
+
+        <td>
+          {% if booking.status == 'Requested' %}
+            <form action="{{ url_for('admin_bp.confirm_booking', booking_id=booking.id) }}" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-success">Accept</button>
+            </form>
+            <form action="{{ url_for('admin_bp.reject_booking', booking_id=booking.id) }}" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+            </form>
+          {% else %}
+            <span class="text-muted">No Action</span>
+          {% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

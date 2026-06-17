@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Flask/runtime data
+instance/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+.tmp/
+
+# IDE files
+.idea/
+.vscode/
+.DS_Store
+
+# Runtime uploads
+app/static/admin_static/uploads/*
+!app/static/admin_static/uploads/.gitkeep
+app/static/admin_static/admin_staff_pics/*
+!app/static/admin_static/admin_staff_pics/.gitkeep

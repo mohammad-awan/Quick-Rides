@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QuickRides</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<!--    href="{{ url_for('static', filename='css/style.css') }}"-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/open-iconic-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/animate.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/magnific-popup.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/aos.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/ionicons.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/jquery.timepicker.css') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_static/css/style.css') }}">
+  </head>
+  <body>
+
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="{{ url_for('user_bp.index') }}">QUICK<span>RIDES</span></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="{{ url_for('user_bp.index') }}" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="{{ url_for('user_bp.about') }}" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.services') }}" class="nav-link">Services</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.cars') }}" class="nav-link">All Cars</a></li>
+	          <li class="nav-item"><a href="{{ url_for('user_bp.contact') }}" class="nav-link">Contact</a></li>
+              {% if session.get('user_id') and session.get('role') == 'user' %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                  {{ session.get('last_name') }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ url_for('user_bp.edit_profile') }}">Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('user_bp.logout') }}">Logout</a>
+                </div>
+              </li>
+              {% else %}
+               <li class="nav-item"><a href="{{ url_for('user_bp.login') }}" class="nav-link">Login</a></li>
+              {% endif %}
+
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+
+    <!-- Replace the entire content section (starting from the hero section to just before the footer) with the following: -->
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ url_for('static', filename='user_static/images/bg_3.jpg') }}');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+            <p class="breadcrumbs">
+              <span class="mr-2"><a href="{{ url_for('user_bp.index') }}">Home <i class="ion-ios-arrow-forward"></i></a></span>
+              <span>FAQ <i class="ion-ios-arrow-forward"></i></span>
+            </p>
+            <h1 class="mb-3 bread">Frequently Asked Questions</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+            <span class="subheading">FAQs</span>
+            <h2 class="mb-4">Quick Answers for Quick Rides</h2>
+            <p>Got questions? We've got answers. Here's everything you need to know about renting with Quick Rides.</p>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-12 ftco-animate">
+            <div class="faq-wrap">
+
+              <h5><strong>1. What documents do I need to rent a car?</strong></h5>
+              <p>You’ll need a valid CNIC, a driving license, and a contact number. For international users, a passport and international driving permit are required.</p>
+
+              <h5><strong>2. Do you offer self-drive and with-driver options?</strong></h5>
+              <p>Yes! You can choose between self-drive and chauffeur-driven rides based on your convenience and preference.</p>
+
+              <h5><strong>3. How do I book a car?</strong></h5>
+              <p>You can browse available vehicles on our website, select your dates, and book instantly. Alternatively, contact our support team for assistance.</p>
+
+              <h5><strong>4. Are your services available nationwide?</strong></h5>
+              <p>Yes, Quick Rides operates in major cities across Pakistan, including Lahore, Karachi, Islamabad, and more.</p>
+
+              <h5><strong>5. What if the car breaks down during my trip?</strong></h5>
+              <p>Our 24/7 roadside assistance ensures you're never stuck. Call our support team, and we'll guide you through the process.</p>
+
+              <h5><strong>6. What are your payment options?</strong></h5>
+              <p>We accept payments via bank transfer, cash, Easypaisa/JazzCash, and online card payments.</p>
+
+              <h5><strong>7. Is there a mileage limit?</strong></h5>
+              <p>Each vehicle comes with a defined mileage limit. Extra charges may apply for exceeding the set mileage. Check details at the time of booking.</p>
+
+              <h5><strong>8. Can I cancel or reschedule my booking?</strong></h5>
+              <p>Yes, you can cancel or reschedule your booking up to 12 hours in advance. Terms may apply based on the vehicle and location.</p>
+
+              <h5><strong>9. Do you provide vehicles for events and corporate bookings?</strong></h5>
+              <p>Absolutely! We cater to weddings, events, business trips, and long-term rentals. Reach out to our corporate team for tailored solutions.</p>
+
+              <h5><strong>10. How can I become a Quick Rides driver?</strong></h5>
+              <p>Visit our "Become A Driver" page, fill in the application form, and we’ll review and get in touch with you shortly.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="ftco-counter ftco-section img" id="section-counter">
+			<div class="overlay"></div>
+    	<div class="container">
+    		<div class="row">
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18">
+              <div class="text text-border d-flex align-items-center">
+                <strong class="number" data-number="3">0</strong>
+                <span>Year <br>Experienced</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18">
+              <div class="text text-border d-flex align-items-center">
+                <strong class="number" data-number="1090">0</strong>
+                <span>Total <br>Cars</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18">
+              <div class="text text-border d-flex align-items-center">
+                <strong class="number" data-number="2590">0</strong>
+                <span>Happy <br>Customers</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18">
+              <div class="text d-flex align-items-center">
+                <strong class="number" data-number="5">0</strong>
+                <span>Total <br>Branches</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    	</div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2"><a href="#" class="logo">Quick<span>Rides</span></a></h2>
+              <p>Far across the roads and valleys of Pakistan, beyond the bustling cities and quiet towns, travel dreams come alive with Quick Rides — where every journey begins with comfort and ends in unforgettable memories.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Information</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.about') }}" class="py-2 d-block">About</a></li>
+                <li><a href="{{ url_for('user_bp.services') }}" class="py-2 d-block">Services</a></li>
+                <li><a href="{{ url_for('user_bp.terms') }}" class="py-2 d-block">Term and Conditions</a></li>
+                <li><a href="{{ url_for('user_bp.best_price') }}" class="py-2 d-block">Best Price Guarantee</a></li>
+                <li><a href="{{ url_for('user_bp.privacy') }}" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Customer Support</h2>
+              <ul class="list-unstyled">
+                <li><a href="{{ url_for('user_bp.faq') }}" class="py-2 d-block">FAQ</a></li>
+                <li><a href="{{ url_for('user_bp.contact') }}" class="py-2 d-block">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">PCHS Defense Ghazi Road Lahore</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+92 3174593982</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">QuickRides@gmail.com</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{{ url_for('static', filename='user_static/js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery-migrate-3.0.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.easing.1.3.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.stellar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.animateNumber.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/jquery.timepicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='user_static/js/scrollax.min.js') }}"></script>
+  {% if config.GOOGLE_MAPS_API_KEY %}
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ config.GOOGLE_MAPS_API_KEY|urlencode }}&sensor=false"></script>
+  <script src="{{ url_for('static', filename='user_static/js/google-map.js') }}"></script>
+  {% endif %}
+  <script src="{{ url_for('static', filename='user_static/js/main.js') }}"></script>
+
+  </body>
+</html>

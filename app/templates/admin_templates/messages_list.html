@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Users Who Messaged</h4>
+<ul class="list-group">
+  {% for email in emails %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ email }}
+      <a href="{{ url_for('admin_bp.chat_box', email=email) }}" class="btn btn-sm btn-primary">Open Chat</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Manage Staff</h4>
+</div>
+
+<ul class="nav nav-tabs mb-4" id="staffTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="all-staff-tab" data-bs-toggle="tab" data-bs-target="#all-staff" type="button" role="tab" aria-controls="all-staff" aria-selected="true">
+      <i class="fas fa-users"></i> All Staff
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" href="{{ url_for('admin_bp.add_staff') }}">
+      <i class="fas fa-plus"></i> Add Staff
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content" id="staffTabContent">
+  <div class="tab-pane fade show active" id="all-staff" role="tabpanel" aria-labelledby="all-staff-tab">
+    <div class="row">
+      {% for member in staff %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+         <img src="{{ url_for('admin_bp.static', filename='admin_staff_pics/' ~ member.picture) }}"
+             class="card-img-top"
+             style="height: 200px; object-fit: cover;"
+             alt="Staff Image">
+
+
+          <div class="card-body">
+            <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+            <p class="card-text">
+              <strong>Email:</strong> {{ member.email }}<br>
+              <strong>Contact:</strong> {{ member.contact }}<br>
+              <strong>CNIC:</strong> {{ member.cnic }}<br>
+              <strong>Address:</strong> {{ member.home_address }}<br>
+              <strong>Role:</strong> {{ member.role_in_office }}<br>
+              <strong>Join Date:</strong> {{ member.join_date.strftime('%Y-%m-%d') }}<br>
+              {% if member.left_of_date %}<strong>Left On:</strong> {{ member.left_of_date }}{% endif %}
+            </p>
+
+            <div class="d-flex justify-content-between">
+              <a href="{{ url_for('admin_bp.update_staff', staff_id=member.id) }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i> Update Staff
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
